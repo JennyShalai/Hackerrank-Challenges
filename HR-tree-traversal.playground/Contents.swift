@@ -1,4 +1,4 @@
-// hackerrank - tree traversal with preorder
+// hackerrank - tree traversal
 //       3
 //   5       2
 // 1   4   6  nil
@@ -14,7 +14,13 @@ class Node {
     }
 }
 
-func treeTraversal(head: Node?) -> String {
+enum Mode {
+    case PREORDER
+    case INORDER
+    case POSTORDER
+}
+
+func treeTraversal(head: Node?, mode: Mode) -> String {
     
     if head == nil {
         return ""
@@ -22,12 +28,24 @@ func treeTraversal(head: Node?) -> String {
     
     var result = ""
     
-    result += "\(String(head!.value)) "
+    if (mode == .PREORDER) {
+        result += "\(String(head!.value)) "
+    }
     
-    result += treeTraversal(head: head?.left)
-    
-    result += treeTraversal(head: head?.right)
+    // Recursion: left subtree
+    result += treeTraversal(head: head?.left, mode: mode)
 
+    if (mode == .INORDER) {
+        result += "\(String(head!.value)) "
+    }
+    
+    // Recursion: right subtree
+    result += treeTraversal(head: head?.right, mode: mode)
+
+    if (mode == .POSTORDER) {
+        result += "\(String(head!.value)) "
+    }
+    
     return result
     
 }
@@ -45,5 +63,7 @@ five.left = one
 five.right = four
 two.left = six
 
-print(treeTraversal(head: head))    // 3 5 1 4 2 6
+print(treeTraversal(head: head, mode: .PREORDER))    // 3 5 1 4 2 6
+print(treeTraversal(head: head, mode: .INORDER))     // 1 5 4 3 6 2
+print(treeTraversal(head: head, mode: .POSTORDER))   // 1 4 5 6 2 3
 
