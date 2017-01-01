@@ -1,5 +1,5 @@
 // HR - easy - list - reverse
-// 
+// https://www.hackerrank.com/challenges/reverse-a-linked-list
 
 
 class Node {
@@ -55,6 +55,8 @@ func printNodes(head: Node?) -> String {
 }
 
 
+
+
 let head = Node.init(value: 0)
 let one = Node.init(value: 1)
 let two = Node.init(value: 2)
@@ -68,4 +70,4 @@ three.next = four
 four.next = five
 
 let reversedList = reverseList(head: head)
-print(printNodes(head: reversedList))   // 5 4 3 2 1 0 
+print(printNodes(head: reversedList))   // 5 4 3 2 1 0
