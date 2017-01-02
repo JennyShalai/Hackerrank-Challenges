@@ -3,34 +3,35 @@
 
 
 class Node {
-    
-    var visited = false
     let value : Int
-    
     weak var next : Node?
-    
     init(value: Int) {
         self.value = value
     }
-    
 }
 
 
 func isCycleDetected(head: Node?) -> Bool {
  
-    var currentNode = head
-    
-    while currentNode != nil {
-        
-        if currentNode!.visited {
-            return true
-        }
-        
-        currentNode?.visited = true
-        currentNode = currentNode?.next
+    if head == nil {
+        return false
     }
     
-    return false
+    var slowPointer = head
+    var fastPointer = head
+    
+    while true {
+        if fastPointer!.next != nil && fastPointer!.next!.next != nil {
+            fastPointer = fastPointer!.next!.next!
+            slowPointer = slowPointer!.next
+        } else {
+            return false
+        }
+        
+        if slowPointer === fastPointer {
+            return true
+        }
+    }
 }
 
 let head = Node.init(value: 0)
