@@ -12,7 +12,47 @@ class Node {
 
 
 func findMergeNode(headOne: Node?, headTwo: Node?) -> Node? {
-
+    
+    // find how many nodes in first list
+    var lengthOne = 0
+    var nodeOne = headOne
+    while nodeOne != nil {
+        lengthOne += 1
+        nodeOne = nodeOne!.next
+    }
+    
+    // find how many nodes in second list
+    var lengthTwo = 0
+    var nodeTwo = headTwo
+    while nodeTwo != nil {
+        lengthTwo += 1
+        nodeTwo = nodeTwo!.next
+    }
+    
+    // shrink longest list
+    nodeOne = headOne
+    nodeTwo = headTwo
+    if lengthOne > lengthTwo {
+        let i = lengthOne - lengthTwo
+        for _ in 0..<i {
+            nodeOne = nodeOne!.next
+        }
+    } else {
+        let i = lengthOne - lengthTwo
+        for _ in 0..<i {
+            nodeTwo = nodeTwo!.next
+        }
+    }
+    
+    // try to find the merge point
+    while nodeOne != nil {
+        if nodeOne === nodeTwo {
+            return nodeOne
+        }
+        nodeOne = nodeOne!.next
+        nodeTwo = nodeTwo!.next
+    }
+    
     return nil
 }
 
@@ -39,19 +79,19 @@ headOne.next = oneOne
 oneOne.next = twoOne
 twoOne.next = threeOne
 
-let headTwo = Node.init(value: 2)
-let oneTwo = Node.init(value: 3)
-let twoTwo = Node.init(value: 4)
+let headTwo = Node.init(value: 3)
+let oneTwo = Node.init(value: 4)
 headTwo.next = oneTwo
-oneTwo.next = twoTwo
 
 let mergeFive = Node.init(value: 5)
 let mergeSix = Node.init(value: 6)
 threeOne.next = mergeFive
-twoTwo.next = mergeFive
+oneTwo.next = mergeFive
 mergeFive.next = mergeSix
 
-print(printNodes(head: headOne))        //   1 2 3 4
-                                        //            5 6
-print(printNodes(head: headTwo))        //     2 3 4
+print(printNodes(head: headOne))        //   1->2->3->4
+//                                                     ->5->6->nil
+print(printNodes(head: headTwo))        //         3->4
 
+let mergePoint = (findMergeNode(headOne: headOne, headTwo: headTwo))
+print(mergePoint!.value)                // 5
