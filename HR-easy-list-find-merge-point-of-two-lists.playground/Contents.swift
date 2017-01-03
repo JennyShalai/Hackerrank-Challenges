@@ -13,6 +13,10 @@ class Node {
 
 func findMergeNode(headOne: Node?, headTwo: Node?) -> Node? {
     
+    if headOne == nil || headTwo == nil {
+        return nil
+    }
+    
     // find how many nodes in first list
     var lengthOne = 0
     var nodeOne = headOne
@@ -38,7 +42,7 @@ func findMergeNode(headOne: Node?, headTwo: Node?) -> Node? {
             nodeOne = nodeOne!.next
         }
     } else {
-        let i = lengthOne - lengthTwo
+        let i = lengthTwo - lengthOne
         for _ in 0..<i {
             nodeTwo = nodeTwo!.next
         }
